@@ -20,6 +20,12 @@ import lombok.Data;
 public class Submission {
 	
 	
+	
+	
+	public Submission() {
+		super();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long submissionId;
