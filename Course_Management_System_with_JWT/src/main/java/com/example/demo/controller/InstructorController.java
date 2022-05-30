@@ -59,11 +59,10 @@ public class InstructorController {
 	}
 	
 	// Sending a simple Email
-	@PreAuthorize("hasRole('Instructor')")
+	@PreAuthorize("hasAnyRole('Instructor','User')")
 	@PostMapping("/sendMail")
 	public String sendMail(@RequestBody EmailDetails details) {
 		String status = emailService.sendSimpleEmail(details);
-
 		return status;
 	}
 
