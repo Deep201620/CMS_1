@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Exception.DataIntegrityException;
+import com.example.demo.configuration.EmailDetails;
 import com.example.demo.dao.ChapterDao;
 import com.example.demo.entity.Subject;
 import com.example.demo.entity.Submission;
 import com.example.demo.service.ChapterService;
+import com.example.demo.service.EmailService;
 import com.example.demo.service.SubjectService;
 import com.example.demo.service.SubmissionService;
 import com.example.demo.service.UserService;
@@ -49,7 +51,10 @@ public class StudentController {
 	@Autowired 
 	private SubmissionService submissionService;
 	
-
+	@Autowired
+	private EmailService emailService;
+	
+	String filename;
 	
 	//get all subjects
 	@GetMapping("/getsubjects")
@@ -69,8 +74,7 @@ public class StudentController {
 	@PreAuthorize("hasRole('User')")
 	@PostMapping("/uploadFile")
 	public ResponseEntity<?> handleFileUpload (@RequestParam("file") MultipartFile file){
-		String filename = file.getOriginalFilename();
-
+		 filename = file.getOriginalFilename();
 		
 		try {
 			file.transferTo(new File("C:\\Users\\150283\\Temp" + filename));
@@ -80,16 +84,20 @@ public class StudentController {
 		return ResponseEntity.ok("File uploaded successfully");
 	}
 	
-	//{fk_user_name}/{fk_subject_id}/{fk_chapter_id}
-//	@PathVariable("fk_user_name") String fk_user_name,
-//	@PathVariable("fk_subject_id") long fk_subject_id, 
-//	@PathVariable("fk_chapter_id") long fk_chapter_id,
+
 	
 	@PreAuthorize("hasRole('User')")
 	@PostMapping(value = "/submit")
 	public ResponseEntity<Submission> addSubmission(@RequestBody Submission submission){
-
+		submission.setSubmission_file_url(filename);
 		return new ResponseEntity<Submission>(submissionService.saveSubmission(submission), HttpStatus.CREATED);
+	}
+	
+	@PreAuthorize("hasRole('User')")
+	@PostMapping("/sendMail")
+	public String sendMail(@RequestBody EmailDetails details) {
+		String status = emailService.sendSimpleEmail(details);
+		return status;
 	}
 	
 }
