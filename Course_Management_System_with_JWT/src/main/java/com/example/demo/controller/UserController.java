@@ -73,7 +73,7 @@ public class UserController {
     // Mine added code
     
 	@GetMapping("/")
-	@ResponseBody
+//	@ResponseBody
 	public String login() {
 		return "login";
 		

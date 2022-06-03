@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -16,8 +18,17 @@ public class User {
     @Id
     @OnDelete(action = OnDeleteAction.CASCADE)
     private String userName;
+    
+    @NotBlank
+    @Size(min=3)
     private String userFirstName;
+    
+    @NotBlank
     private String userLastName;
+    
+    @NotBlank
+    @Size(min = 6, max=12)
+    
     private String userPassword;
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL )

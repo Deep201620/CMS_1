@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -33,22 +36,26 @@ public class Submission {
 	@ManyToOne
 	@JoinColumn(name="FK_subjectid", referencedColumnName = "subjectId")
 	
+	@NotNull
 	private Subject subject;
 	
 	
 	@ManyToOne
 	@JoinColumn(name="FK_userName", referencedColumnName = "userName")
 	
+	@NotNull
 	private User user;
 	
 	
 	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "Fk_chapterId", referencedColumnName = "chapterId")
 
+	@NotNull
 	private Chapter chapter;
 	
 	private String Submission_file_url;
 	
+	@Size(min = 10, max=100)
 	private String comments;
 
 	public long getSubmissionId() {

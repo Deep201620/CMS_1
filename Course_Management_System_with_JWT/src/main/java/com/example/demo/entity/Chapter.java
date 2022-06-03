@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -27,9 +29,11 @@ public class Chapter {
 	@JoinColumn(name="FK_subjectid", referencedColumnName = "subjectId")
 	
 	@JsonBackReference
+	@NotBlank
 	private Subject subject;
 	
-	
+	@NotBlank
+	@Size(min=3, max=20)
 	private String chapterName;
 	
 	
