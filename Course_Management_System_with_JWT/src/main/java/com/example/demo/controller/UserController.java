@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Role;
 import com.example.demo.entity.Subject;
+import com.example.demo.Exception.ResourceNotFoundException;
+import com.example.demo.dao.UserDao;
 import com.example.demo.entity.Chapter;
 import com.example.demo.entity.JwtRequest;
 import com.example.demo.entity.JwtResponse;
@@ -31,6 +33,8 @@ import com.example.demo.service.UserService;
 import com.example.demo.service.SubjectService;
 
 import java.util.List;
+import java.util.Optional;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
@@ -43,8 +47,7 @@ public class UserController {
     
     @Autowired 
     private JwtService jwtService;
-    
-    
+  
     @Autowired 
     private SubjectService subjectService;
     
@@ -60,40 +63,10 @@ public class UserController {
     public void initRoleAndUser() {
         userService.initRoleAndUser();
     }
-    
 
-//    @PostMapping({"/registerNewUser"})
-//    @PreAuthorize("hasRole('Admin')")
-//    public User registerNewUser(@RequestBody User user) {
-//        return userService.registerNewUser(user);
-//    }
-//
-// 
     
     // Mine added code
-    
-	@GetMapping("/")
-//	@ResponseBody
-	public String login() {
-		return "login";
-		
-	}
-	
-//	@GetMapping("/admin")
-//	@PreAuthorize("hasRole('Admin')")
-//	public String admin() {
-//		return "admin";
-//	}
-//	
-//	@GetMapping("/registerUser")
-////	@PreAuthorize("hasRole('Admin')")
-//		public String addUser(Model model) {
-//		List<Role> roles = roleService.getAllRoles();
-//		model.addAttribute("roles", roles);
-//		model.addAttribute("role", new Role());
-//			return "registerUser";
-//		}
-	
+   
 
 	@PostMapping(value="/addUser")
 	@PreAuthorize("hasRole('Admin')")
@@ -101,24 +74,14 @@ public class UserController {
 		return new ResponseEntity<User>(userService.saveUser(user), HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping(value="/deleteUser/{Id}")
+	@DeleteMapping(value="/deleteUser/{userName}")
 	@PreAuthorize("hasRole('Admin')")
 	@ResponseBody
-	public String deleteUser(@PathVariable("Id") String Id){
-		return userService.deleteUser(Id);
+	public String deleteUser(@PathVariable("userName") String userName) throws ResourceNotFoundException{
+		return userService.deleteUser(userName);
 	}
 
-//	@PostMapping("/adminLogin")
-//	public String adminLogin() {
-//		
-//	}
-	
-//	@GetMapping("/addSubjectForm")
-//	@PreAuthorize("hasRole('Admin')")
-//	public String addsubjectForm() {
-//		return "addsubjectForm";
-//	}
-	
+
 	@PostMapping(value="/addSubject")
 	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject){
@@ -126,12 +89,6 @@ public class UserController {
 	}
 	
 	
-//	@GetMapping("/showSubjects")
-//	public String getAllSubjects(Model model) {
-//		List<Subject> subjects =  subjectService.getAllSubjects();
-//		model.addAttribute("subjects", subjects);
-//		return "showSubjects";
-//	}
 	
 	@DeleteMapping("/delSubject/{subjectId}")
 	@PreAuthorize("hasRole('Admin')")

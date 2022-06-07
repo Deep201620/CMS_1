@@ -34,9 +34,12 @@ public class UserService {
 		return userDao.save(user);
 	}
 	
-	public String deleteUser(String id) {
-		userDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "username", id));
-		userDao.deleteById(id);
+	public String deleteUser(String userName) throws  ResourceNotFoundException{
+//		userDao.findById(userName).orElseThrow(() -> new ResourceNotFoundException("User", "username", userName));
+		Optional<User> user = userDao.findById(userName);
+		if(!user.isPresent()) {
+			throw new ResourceNotFoundException(userName, userName, user);
+		}
 		return "User deleted Successfully";
 	}
 	
