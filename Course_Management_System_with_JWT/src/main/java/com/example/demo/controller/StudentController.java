@@ -93,11 +93,5 @@ public class StudentController {
 		return new ResponseEntity<Submission>(submissionService.saveSubmission(submission), HttpStatus.CREATED);
 	}
 	
-//	@PreAuthorize("hasRole('User')")
-//	@PostMapping("/sendMail")
-//	public String sendMail(@RequestBody EmailDetails details) {
-//		String status = emailService.sendSimpleEmail(details);
-//		return status;
-//	}
-	
+
 }

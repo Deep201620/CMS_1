@@ -15,20 +15,21 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-
+@Builder
 public class Submission {
 	
 	
-	
-	
-	public Submission() {
-		super();
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long submissionId;

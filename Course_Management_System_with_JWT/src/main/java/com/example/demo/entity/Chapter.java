@@ -63,4 +63,6 @@ public class Chapter {
 	@OneToOne(mappedBy = "chapter")
 	private Submission submisison;
 
+	
+	
 }
