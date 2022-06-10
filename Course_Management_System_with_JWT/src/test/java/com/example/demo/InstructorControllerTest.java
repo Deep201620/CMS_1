@@ -23,7 +23,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -40,7 +44,9 @@ import com.example.demo.service.SubmissionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+
 @RunWith(MockitoJUnitRunner.class)
+
 public class InstructorControllerTest {
 	
 	@Mock
@@ -52,7 +58,6 @@ public class InstructorControllerTest {
 	@InjectMocks
 	InstructorController instructorController;
 	
-
 	private MockMvc mockMvc;
 	
 	ObjectMapper objectMapper = new ObjectMapper();
