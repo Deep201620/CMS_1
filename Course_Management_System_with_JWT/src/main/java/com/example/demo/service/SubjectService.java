@@ -35,9 +35,9 @@ public class SubjectService {
 	
 	public Optional<Subject> getSubjectById(long id) {
 		
-		subjectRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subject", "subjectId", id));
+		Optional<Subject> foundsub = Optional.ofNullable(subjectRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subject", "subjectId", id)));
 		
-		return subjectRepo.findById(id);
+		return foundsub;
 	}
 	
 	

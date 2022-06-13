@@ -11,7 +11,5 @@ import com.example.demo.entity.User;
 @Repository
 public interface UserDao extends JpaRepository<User, String> {
 	
-	User saveUser(User user);
 	
-	String deleteUser(String userName);
 }
