@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
+@CrossOrigin
+@RequestMapping("/admin/api")
 public class UserController {
 
     @Autowired
@@ -68,7 +71,7 @@ public class UserController {
     // Mine added code
    
 
-	@PostMapping(value="/addUser")
+	@PostMapping("/addUser")
 	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<User> saveUser(@RequestBody User user){
 		return new ResponseEntity<User>(userService.saveUser(user), HttpStatus.CREATED);
